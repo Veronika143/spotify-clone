@@ -1,0 +1,36 @@
+.menu__link {
+  display: flex;
+  gap: 16px;
+  text-decoration: none;
+  color: #b3b3b3;
+  align-items: center;
+  word-break: break-word;
+}
+.menu__link:hover {
+  color: #fff;
+}
+.menu {
+  font-family: "Lato", "Arial";
+  font-size: 16px;
+  grid-area: menu;
+  box-sizing: border-box;
+  background-color: #000;
+  max-width: 300px;
+  min-width: 250px;
+  height: 100%;
+}
+.menu__list {
+  height: 100%;
+  padding: 40px 25px;
+  margin: 0px;
+}
+.menu__item {
+  min-height: 40px;
+  text-align: left;
+  font-weight: 700;
+  list-style: none;
+  transition: all 0.3s ease 0s;
+}
+.menu__item__active a {
+  color: #fff;
+}

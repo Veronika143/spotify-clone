@@ -1,0 +1,60 @@
+.header {
+  display: flex;
+  grid-area: header;
+  height: 60px;
+  justify-content: space-between;
+  background-color: #121212;
+  text-align: center;
+  align-items: center;
+  padding: 0px 25px;
+}
+.header__logo {
+  cursor: pointer;
+}
+.spotify-logo {
+  color: #fff;
+}
+.header__search {
+  height: 30px;
+  border: 0px;
+  min-width: 300px;
+  max-width: 320px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 5px 30px;
+  outline: none;
+}
+.user-menu__button {
+  font-weight: 700;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  border-radius: 23px;
+  height: 36px;
+  min-width: 32px;
+  box-sizing: border-box;
+  color: #fff;
+  white-space: nowrap;
+  transition: all 0.3s ease 0s;
+  background-color: #1d1d1d;
+  cursor: pointer;
+}
+.user-menu__button:hover {
+  background-color: #4d4d4d;
+}
+.user-menu__photo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+.user-menu__arrow {
+  width: 0;
+  height: 0;
+  margin-left: 10px;
+  transition: all 0.3s ease 0s;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #fff;
+}
