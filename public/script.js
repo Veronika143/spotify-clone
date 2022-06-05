@@ -1,47 +1,15 @@
-/** Получаем список жанров */
-const getGenres = async () => {
-        
-    try {
-        let token = await getToken();
+import { makeFetch } from "./scripts/makeFetch.js";
 
-        const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US`, {
-        method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + token}
-    });
-
-    const data = await result.json();
-    return data.categories.items;
-    }
-    catch(error) {
-        console.log("Ой, что-то пошло не так. Ошибка: ", error)
-    }
-}
+const GENRES_URL = `https://api.spotify.com/v1/browse/categories?locale=sv_US`;
+const limit = 10;
+const PLAYLISTS_URL = `https://api.spotify.com/v1/browse/featured-playlists?limit=${limit}`;
+const USER_URL = `https://api.spotify.com/v1/users/26idub89ck17yhltuc8zxrd7b`;
 
 /** Получаем список рекомендованных плейлистов */
-const getPlaylists = async () => {
-
-   try {
-        let token = await getToken();
-        const limit = 10;
-
-        const result = await fetch(`https://api.spotify.com/v1/browse/featured-playlists?limit=${limit}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
-            }
-        });
-        const data = await result.json();
-        return data
-    }
-    catch(error) {
-        console.log("Ой, что-то пошло не так. Ошибка: ", error)
-    }
-}
-
 /** Разбиваем плейлисты по карточкам и выводим на страницу */
 const createPlaylists = async () => {
-    let data = await getPlaylists();
+    
+    let data = await makeFetch(PLAYLISTS_URL);
     let cards = document.querySelector('.playlists');
     console.log(data); 
 
@@ -56,25 +24,28 @@ const createPlaylists = async () => {
     }
 }
 
+/** Получаем список жанров */
 /** Разбиваем жанры по карточкам и выводим на страницу */
 const createGenres = async () => {
-    let genres = await getGenres();
+    
+    let genres = await makeFetch(GENRES_URL);
     let cards = document.querySelector('.genres');
-    console.log(genres);
+    console.log(genres.categories.items);
 
-    for (let i = 0; i < genres.length; i++) {
+    for (let i = 0; i < genres.categories.items.length; i++) {
         cards.insertAdjacentHTML('beforeend', `
          <div class="content__card card">
-            <img class="card__image" src='${genres[i].icons[0].url}' id='${genres[i].id}'>  
-            <div class="card__title">${genres[i].name}</div>
+            <img class="card__image" src='${genres.categories.items[i].icons[0].url}' id='${genres.categories.items[i].id}'>  
+            <div class="card__title">${genres.categories.items[i].name}</div>
          </div>`
       )
     }
 }
 
+/** Получаем имя и фотографию профиля пользователя */
 /** Выводим на страницу полученные фото и имя пользователя */
 const createUser = async () => {
-    let user = await getUserInfo();
+    let user = await makeFetch(USER_URL);
     console.log(user);
 
     let userPhoto = document.querySelector('.user-menu__photo');
